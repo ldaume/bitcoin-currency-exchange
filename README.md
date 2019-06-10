@@ -6,7 +6,11 @@ This API provides the exchange rate from Bitcoin to US-Dollar (1 Bitcoin = x USD
 # Usage
 ## Build Docker image
 ### sbt
-One can build a docker image with [sbt](https://www.scala-sbt.org/). Just type `sbt docker:publishLocal`.
+One can build a docker image with [sbt](https://www.scala-sbt.org/). 
+
+1. Add a application secret `sbt playUpdateSecret`
+2. Just type `sbt docker:publishLocal`
+
 ### Drone CI
 One can use the CLI of [Drone CI](https://drone.io/) by typing `drone exec --trusted`
 
