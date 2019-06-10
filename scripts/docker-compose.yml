@@ -28,8 +28,9 @@ services:
       - bitcoin-db
     restart: always
     environment:
-      - CRAWLER_INITIAL_DELAY=5m
+      - CRAWLER_INITIAL_DELAY=5s
       - CRAWLER_INTERVAL=5m
+      - ARANGODB_HOST=http://bitcoin-db:8529
 
 volumes:
   bitcoin-db:

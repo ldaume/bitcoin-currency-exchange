@@ -1,8 +1,10 @@
 package modules;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;
 import com.typesafe.config.Config;
 import javax.inject.Inject;
+import lifecycle.JobScheduler;
 import lifecycle.PlayUtils;
 import play.Environment;
 
@@ -25,5 +27,6 @@ public class ApplicationModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(PlayUtils.class).asEagerSingleton();
+    bind(JobScheduler.class).in(Scopes.SINGLETON);
   }
 }
