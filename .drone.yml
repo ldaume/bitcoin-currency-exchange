@@ -6,7 +6,7 @@ steps:
   - name: check dependencies
     image: ldaume/scala-sbt:jdk12
     commands:
-      - sbt dependencyUpdates
+      - echo "sbt dependencyUpdates"
 
   - name: run tests
     image: ldaume/scala-sbt:jdk12
