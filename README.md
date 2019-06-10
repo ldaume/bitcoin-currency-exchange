@@ -3,6 +3,13 @@ Bitcoin exchange rate API
 # Abstract
 This API provides the exchange rate from Bitcoin to US-Dollar (1 Bitcoin = x USD) which is crawled in a configurable interval.
 
+# Architecture
+The application is written in [Play](https://www.playframework.com/) and scaffolded via the [Giter8](http://www.foundweekends.org/giter8/) template [ldaume/play-restful-docker.g8](https://github.com/ldaume/play-restful-docker.g8)
+
+It contains a [swagger](https://swagger.io/) specification for easy usage and the crawler is scheduled with [akka](https://akka.io/) which calls a public API in a configurable interval.
+
+Every exchange rate is stored in a [ArangoDB](https://www.arangodb.com/) collection.
+
 # Usage
 ## Build Docker image
 ### sbt
