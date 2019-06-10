@@ -1,0 +1,13 @@
+---
+swagger: "2.0"
+host: localhost:9060
+basePath: /
+schemes:
+  - http
+info:
+  title: "Bitcoin exchange rate API"
+  description: "Power your bitcoin"
+consumes:
+  - application/json
+produces:
+  - application/json

@@ -1,0 +1,54 @@
+---
+kind: pipeline
+name: build
+
+steps:
+  - name: check dependencies
+    image: ldaume/scala-sbt:jdk12
+    commands:
+      - sbt dependencyUpdates
+
+  - name: run tests
+    image: ldaume/scala-sbt:jdk12
+    commands:
+      - sbt clean test
+
+  - name: publish production image
+    image: ldaume/scala-sbt:jdk12
+    volumes:
+      - name: dockersock
+        path: /var/run
+    environment:
+    commands:
+      - echo "dockerAliases ++= Seq(dockerAlias.value.withTag(Option(\"production\")), dockerAlias.value.withTag(Option(\"RELEASE.$(date +%Y-%m-%dT%H-%M-%S%Z)\")))" >> docker.sbt
+      - sbt playUpdateSecret
+      - sbt docker:publishLocal
+    when:
+      branch:
+        - master
+
+  - name: publish staging image
+    image: ldaume/scala-sbt:jdk12
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+      - echo "dockerAliases ++= Seq(dockerAlias.value.withTag(Option(\"staging\")))" >> docker.sbt
+      - sbt playUpdateSecret
+      - sbt docker:publishLocal
+    when:
+      branch:
+        - staging
+
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
+    volumes:
+      - name: dockersock
+        path: /var/run
+
+volumes:
+  - name: dockersock
+    temp: {}
+

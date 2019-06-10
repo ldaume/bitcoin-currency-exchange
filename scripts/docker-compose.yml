@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  bitcoin-db:
+    image: arangodb:3.4.5
+    container_name: bitcoin-db
+    environment:
+      - ARANGO_RANDOM_ROOT_PASSWORD=1
+    ports:
+      - "8585:8529"
+    volumes:
+      - bitcoin-db:/var/lib/arangodb3
+      - type: bind
+        source: ./arango-init.js
+        target: /docker-entrypoint-initdb.d/arango_dbs.js
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1  --header \"Authorization: Basic dGVzdDp0ZXN0\" --output-document - https://workplace-api-db.service.mondosano.de/_admin/statistics || exit 1"]
+      retries: 1
+      start_period: 2m
+
+  bitcoin-api:
+    image: bitcoin-currency-exchange
+    container_name: bitcoin-api
+    ports:
+      - "9060:9060"
+    depends_on:
+      - bitcoin-db
+    restart: always
+    environment:
+      - CRAWLER_INITIAL_DELAY=5m
+      - CRAWLER_INTERVAL=5m
+
+volumes:
+  bitcoin-db:
+    external: false
