@@ -21,6 +21,7 @@ steps:
     environment:
     commands:
       - echo "dockerAliases ++= Seq(dockerAlias.value.withTag(Option(\"production\")), dockerAlias.value.withTag(Option(\"RELEASE.$(date +%Y-%m-%dT%H-%M-%S%Z)\")))" >> docker.sbt
+      - sbt swagger
       - sbt playUpdateSecret
       - sbt docker:publishLocal
     when:
@@ -34,6 +35,7 @@ steps:
         path: /var/run
     commands:
       - echo "dockerAliases ++= Seq(dockerAlias.value.withTag(Option(\"staging\")))" >> docker.sbt
+      - sbt swagger
       - sbt playUpdateSecret
       - sbt docker:publishLocal
     when:
