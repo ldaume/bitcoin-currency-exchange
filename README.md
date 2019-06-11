@@ -15,7 +15,7 @@ Every exchange rate is stored in a [ArangoDB](https://www.arangodb.com/) collect
 ### sbt
 One can build a docker image with [sbt](https://www.scala-sbt.org/). 
 
-1. build swagger docs: `sbt swagger`
+1. build swagger docs: `sbt package`
 2. Add a application secret `sbt playUpdateSecret`
 3. Just type `sbt docker:publishLocal`
 
