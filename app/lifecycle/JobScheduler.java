@@ -20,6 +20,7 @@ import play.libs.ws.WSResponse;
 import scala.concurrent.duration.Duration;
 import service.db.arango.BitcoinRepo;
 import service.entity.BitcoinRate;
+import software.reinvent.commons.config.ConfigLoader;
 
 public class JobScheduler {
 
@@ -30,9 +31,9 @@ public class JobScheduler {
   private final BitcoinRepo bitcoinRepo;
 
   @Inject
-  public JobScheduler(ActorSystem system, Environment environment, Config config,
-      WSClient ws, BitcoinRepo bitcoinRepo) {
-    this.config = config;
+  public JobScheduler(ActorSystem system, Environment environment, WSClient ws, 
+      BitcoinRepo bitcoinRepo) {
+    config = ConfigLoader.load();
     this.ws = ws;
     this.bitcoinRepo = bitcoinRepo;
     logger = Logger.of(this.getClass());
