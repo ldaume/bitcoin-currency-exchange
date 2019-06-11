@@ -26,7 +26,7 @@ public class ApplicationModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(PlayUtils.class).asEagerSingleton();
+    bind(PlayUtils.class).in(Scopes.SINGLETON);
     bind(JobScheduler.class).in(Scopes.SINGLETON);
   }
 }

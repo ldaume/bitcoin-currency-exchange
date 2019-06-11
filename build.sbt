@@ -15,8 +15,6 @@ version := appVersion
 organization := "dev.lenny"
 val appPort = conf.getString("http.port")
 
-javacOptions ++= Seq("-source", "12", "-target", "12")
-
 scalaVersion := "2.12.8"
 
 // Play provides two styles of routers, one expects its actions to be injected, the
