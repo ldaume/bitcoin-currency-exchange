@@ -15,8 +15,9 @@ Every exchange rate is stored in a [ArangoDB](https://www.arangodb.com/) collect
 ### sbt
 One can build a docker image with [sbt](https://www.scala-sbt.org/). 
 
-1. Add a application secret `sbt playUpdateSecret`
-2. Just type `sbt docker:publishLocal`
+1. build swagger docs: `sbt swagger`
+2. Add a application secret `sbt playUpdateSecret`
+3. Just type `sbt docker:publishLocal`
 
 ### Drone CI
 One can use the CLI of [Drone CI](https://drone.io/) by typing `drone exec --trusted`
